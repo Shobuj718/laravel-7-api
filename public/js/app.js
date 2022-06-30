@@ -1989,7 +1989,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2003,7 +2002,7 @@ __webpack_require__.r(__webpack_exports__);
     this.loadProducts();
   },
   mounted: function mounted() {
-    cnosole.log('mounted');
+    console.log('mounted');
   },
   methods: {
     loadCategories: function loadCategories() {
@@ -17287,308 +17286,6 @@ if ( typeof noGlobal === "undefined" ) {
 
 return jQuery;
 } );
-
-
-/***/ }),
-
-/***/ "./node_modules/laravel-vue-pagination/dist/laravel-vue-pagination.es.js":
-/*!*******************************************************************************!*\
-  !*** ./node_modules/laravel-vue-pagination/dist/laravel-vue-pagination.es.js ***!
-  \*******************************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return LaravelVuePagination; });
-/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
-/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_0__);
-
-const _sfc_main$1 = {
-  emits: ["pagination-change-page"],
-  props: {
-    data: {
-      type: Object,
-      default: () => {
-      }
-    },
-    limit: {
-      type: Number,
-      default: 0
-    },
-    showDisabled: {
-      type: Boolean,
-      default: false
-    },
-    size: {
-      type: String,
-      default: "default",
-      validator: (value) => {
-        return ["small", "default", "large"].indexOf(value) !== -1;
-      }
-    },
-    align: {
-      type: String,
-      default: "left",
-      validator: (value) => {
-        return ["left", "center", "right"].indexOf(value) !== -1;
-      }
-    }
-  },
-  computed: {
-    isApiResource() {
-      return !!this.data.meta;
-    },
-    currentPage() {
-      return this.isApiResource ? this.data.meta.current_page : this.data.current_page;
-    },
-    firstPageUrl() {
-      return this.isApiResource ? this.data.links.first : null;
-    },
-    from() {
-      return this.isApiResource ? this.data.meta.from : this.data.from;
-    },
-    lastPage() {
-      return this.isApiResource ? this.data.meta.last_page : this.data.last_page;
-    },
-    lastPageUrl() {
-      return this.isApiResource ? this.data.links.last : null;
-    },
-    nextPageUrl() {
-      return this.isApiResource ? this.data.links.next : this.data.next_page_url;
-    },
-    perPage() {
-      return this.isApiResource ? this.data.meta.per_page : this.data.per_page;
-    },
-    prevPageUrl() {
-      return this.isApiResource ? this.data.links.prev : this.data.prev_page_url;
-    },
-    to() {
-      return this.isApiResource ? this.data.meta.to : this.data.to;
-    },
-    total() {
-      return this.isApiResource ? this.data.meta.total : this.data.total;
-    },
-    pageRange() {
-      if (this.limit === -1) {
-        return 0;
-      }
-      if (this.limit === 0) {
-        return this.lastPage;
-      }
-      var current = this.currentPage;
-      var last = this.lastPage;
-      var delta = this.limit;
-      var left = current - delta;
-      var right = current + delta + 1;
-      var range = [];
-      var pages = [];
-      var l;
-      for (var i = 1; i <= last; i++) {
-        if (i === 1 || i === last || i >= left && i < right) {
-          range.push(i);
-        }
-      }
-      range.forEach(function(i2) {
-        if (l) {
-          if (i2 - l === 2) {
-            pages.push(l + 1);
-          } else if (i2 - l !== 1) {
-            pages.push("...");
-          }
-        }
-        pages.push(i2);
-        l = i2;
-      });
-      return pages;
-    }
-  },
-  methods: {
-    previousPage() {
-      this.selectPage(this.currentPage - 1);
-    },
-    nextPage() {
-      this.selectPage(this.currentPage + 1);
-    },
-    selectPage(page) {
-      if (page === "...") {
-        return;
-      }
-      this.$emit("pagination-change-page", page);
-    }
-  },
-  render() {
-    return this.$slots.default({
-      data: this.data,
-      limit: this.limit,
-      showDisabled: this.showDisabled,
-      size: this.size,
-      align: this.align,
-      computed: {
-        isApiResource: this.isApiResource,
-        currentPage: this.currentPage,
-        firstPageUrl: this.firstPageUrl,
-        from: this.from,
-        lastPage: this.lastPage,
-        lastPageUrl: this.lastPageUrl,
-        nextPageUrl: this.nextPageUrl,
-        perPage: this.perPage,
-        prevPageUrl: this.prevPageUrl,
-        to: this.to,
-        total: this.total,
-        pageRange: this.pageRange
-      },
-      prevButtonEvents: {
-        click: (e) => {
-          e.preventDefault();
-          this.previousPage();
-        }
-      },
-      nextButtonEvents: {
-        click: (e) => {
-          e.preventDefault();
-          this.nextPage();
-        }
-      },
-      pageButtonEvents: (page) => ({
-        click: (e) => {
-          e.preventDefault();
-          this.selectPage(page);
-        }
-      })
-    });
-  }
-};
-var _export_sfc = (sfc, props) => {
-  const target = sfc.__vccOpts || sfc;
-  for (const [key, val] of props) {
-    target[key] = val;
-  }
-  return target;
-};
-const _sfc_main = {
-  inheritAttrs: false,
-  emits: ["pagination-change-page"],
-  components: {
-    RenderlessLaravelVuePagination: _sfc_main$1
-  },
-  props: {
-    data: {
-      type: Object,
-      default: () => {
-      }
-    },
-    limit: {
-      type: Number,
-      default: 0
-    },
-    showDisabled: {
-      type: Boolean,
-      default: false
-    },
-    size: {
-      type: String,
-      default: "default",
-      validator: (value) => {
-        return ["small", "default", "large"].indexOf(value) !== -1;
-      }
-    },
-    align: {
-      type: String,
-      default: "left",
-      validator: (value) => {
-        return ["left", "center", "right"].indexOf(value) !== -1;
-      }
-    }
-  },
-  methods: {
-    onPaginationChangePage(page) {
-      this.$emit("pagination-change-page", page);
-    }
-  }
-};
-const _hoisted_1 = ["tabindex"];
-const _hoisted_2 = /* @__PURE__ */ Object(vue__WEBPACK_IMPORTED_MODULE_0__["createElementVNode"])("span", { "aria-hidden": "true" }, "\xAB", -1);
-const _hoisted_3 = /* @__PURE__ */ Object(vue__WEBPACK_IMPORTED_MODULE_0__["createElementVNode"])("span", { class: "sr-only" }, "Previous", -1);
-const _hoisted_4 = {
-  key: 0,
-  class: "sr-only"
-};
-const _hoisted_5 = ["tabindex"];
-const _hoisted_6 = /* @__PURE__ */ Object(vue__WEBPACK_IMPORTED_MODULE_0__["createElementVNode"])("span", { "aria-hidden": "true" }, "\xBB", -1);
-const _hoisted_7 = /* @__PURE__ */ Object(vue__WEBPACK_IMPORTED_MODULE_0__["createElementVNode"])("span", { class: "sr-only" }, "Next", -1);
-function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
-  const _component_RenderlessLaravelVuePagination = Object(vue__WEBPACK_IMPORTED_MODULE_0__["resolveComponent"])("RenderlessLaravelVuePagination");
-  return Object(vue__WEBPACK_IMPORTED_MODULE_0__["openBlock"])(), Object(vue__WEBPACK_IMPORTED_MODULE_0__["createBlock"])(_component_RenderlessLaravelVuePagination, {
-    data: $props.data,
-    limit: $props.limit,
-    "show-disabled": $props.showDisabled,
-    size: $props.size,
-    align: $props.align,
-    onPaginationChangePage: $options.onPaginationChangePage
-  }, {
-    default: Object(vue__WEBPACK_IMPORTED_MODULE_0__["withCtx"])((slotProps) => [
-      slotProps.computed.total > slotProps.computed.perPage ? (Object(vue__WEBPACK_IMPORTED_MODULE_0__["openBlock"])(), Object(vue__WEBPACK_IMPORTED_MODULE_0__["createElementBlock"])("ul", Object(vue__WEBPACK_IMPORTED_MODULE_0__["mergeProps"])({ key: 0 }, _ctx.$attrs, {
-        class: ["pagination", {
-          "pagination-sm": slotProps.size == "small",
-          "pagination-lg": slotProps.size == "large",
-          "justify-content-center": slotProps.align == "center",
-          "justify-content-end": slotProps.align == "right"
-        }]
-      }), [
-        slotProps.computed.prevPageUrl || slotProps.showDisabled ? (Object(vue__WEBPACK_IMPORTED_MODULE_0__["openBlock"])(), Object(vue__WEBPACK_IMPORTED_MODULE_0__["createElementBlock"])("li", {
-          key: 0,
-          class: Object(vue__WEBPACK_IMPORTED_MODULE_0__["normalizeClass"])(["page-item pagination-prev-nav", { "disabled": !slotProps.computed.prevPageUrl }])
-        }, [
-          Object(vue__WEBPACK_IMPORTED_MODULE_0__["createElementVNode"])("a", Object(vue__WEBPACK_IMPORTED_MODULE_0__["mergeProps"])({
-            class: "page-link",
-            href: "#",
-            "aria-label": "Previous",
-            tabindex: !slotProps.computed.prevPageUrl && -1
-          }, Object(vue__WEBPACK_IMPORTED_MODULE_0__["toHandlers"])(slotProps.prevButtonEvents)), [
-            Object(vue__WEBPACK_IMPORTED_MODULE_0__["renderSlot"])(_ctx.$slots, "prev-nav", {}, () => [
-              _hoisted_2,
-              _hoisted_3
-            ])
-          ], 16, _hoisted_1)
-        ], 2)) : Object(vue__WEBPACK_IMPORTED_MODULE_0__["createCommentVNode"])("", true),
-        (Object(vue__WEBPACK_IMPORTED_MODULE_0__["openBlock"])(true), Object(vue__WEBPACK_IMPORTED_MODULE_0__["createElementBlock"])(vue__WEBPACK_IMPORTED_MODULE_0__["Fragment"], null, Object(vue__WEBPACK_IMPORTED_MODULE_0__["renderList"])(slotProps.computed.pageRange, (page, key) => {
-          return Object(vue__WEBPACK_IMPORTED_MODULE_0__["openBlock"])(), Object(vue__WEBPACK_IMPORTED_MODULE_0__["createElementBlock"])("li", {
-            class: Object(vue__WEBPACK_IMPORTED_MODULE_0__["normalizeClass"])(["page-item pagination-page-nav", { "active": page == slotProps.computed.currentPage }]),
-            key
-          }, [
-            Object(vue__WEBPACK_IMPORTED_MODULE_0__["createElementVNode"])("a", Object(vue__WEBPACK_IMPORTED_MODULE_0__["mergeProps"])({
-              class: "page-link",
-              href: "#"
-            }, Object(vue__WEBPACK_IMPORTED_MODULE_0__["toHandlers"])(slotProps.pageButtonEvents(page))), [
-              Object(vue__WEBPACK_IMPORTED_MODULE_0__["createTextVNode"])(Object(vue__WEBPACK_IMPORTED_MODULE_0__["toDisplayString"])(page) + " ", 1),
-              page == slotProps.computed.currentPage ? (Object(vue__WEBPACK_IMPORTED_MODULE_0__["openBlock"])(), Object(vue__WEBPACK_IMPORTED_MODULE_0__["createElementBlock"])("span", _hoisted_4, "(current)")) : Object(vue__WEBPACK_IMPORTED_MODULE_0__["createCommentVNode"])("", true)
-            ], 16)
-          ], 2);
-        }), 128)),
-        slotProps.computed.nextPageUrl || slotProps.showDisabled ? (Object(vue__WEBPACK_IMPORTED_MODULE_0__["openBlock"])(), Object(vue__WEBPACK_IMPORTED_MODULE_0__["createElementBlock"])("li", {
-          key: 1,
-          class: Object(vue__WEBPACK_IMPORTED_MODULE_0__["normalizeClass"])(["page-item pagination-next-nav", { "disabled": !slotProps.computed.nextPageUrl }])
-        }, [
-          Object(vue__WEBPACK_IMPORTED_MODULE_0__["createElementVNode"])("a", Object(vue__WEBPACK_IMPORTED_MODULE_0__["mergeProps"])({
-            class: "page-link",
-            href: "#",
-            "aria-label": "Next",
-            tabindex: !slotProps.computed.nextPageUrl && -1
-          }, Object(vue__WEBPACK_IMPORTED_MODULE_0__["toHandlers"])(slotProps.nextButtonEvents)), [
-            Object(vue__WEBPACK_IMPORTED_MODULE_0__["renderSlot"])(_ctx.$slots, "next-nav", {}, () => [
-              _hoisted_6,
-              _hoisted_7
-            ])
-          ], 16, _hoisted_5)
-        ], 2)) : Object(vue__WEBPACK_IMPORTED_MODULE_0__["createCommentVNode"])("", true)
-      ], 16)) : Object(vue__WEBPACK_IMPORTED_MODULE_0__["createCommentVNode"])("", true)
-    ]),
-    _: 3
-  }, 8, ["data", "limit", "show-disabled", "size", "align", "onPaginationChangePage"]);
-}
-var LaravelVuePagination = /* @__PURE__ */ _export_sfc(_sfc_main, [["render", _sfc_render]]);
-
 
 
 /***/ }),
@@ -38010,44 +37707,34 @@ var render = function () {
           ),
         ]),
         _vm._v(" "),
-        _c(
-          "div",
-          { staticClass: "col-lg-9" },
-          [
-            _c(
-              "div",
-              { staticClass: "row mt-4" },
-              _vm._l(_vm.products.data, function (product) {
-                return _c("div", { staticClass: "col-lg-4 col-md-6 mb-4" }, [
-                  _c("div", { staticClass: "card h-100" }, [
-                    _vm._m(0, true),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "card-body" }, [
-                      _c("h4", { staticClass: "card-title" }, [
-                        _c("a", { attrs: { href: "#" } }, [
-                          _vm._v(_vm._s(product.name)),
-                        ]),
-                      ]),
-                      _vm._v(" "),
-                      _c("h5", [_vm._v("$ " + _vm._s(product.price))]),
-                      _vm._v(" "),
-                      _c("p", { staticClass: "card-text" }, [
-                        _vm._v(_vm._s(product.description)),
+        _c("div", { staticClass: "col-lg-9" }, [
+          _c(
+            "div",
+            { staticClass: "row mt-4" },
+            _vm._l(_vm.products.data, function (product) {
+              return _c("div", { staticClass: "col-lg-4 col-md-6 mb-4" }, [
+                _c("div", { staticClass: "card h-100" }, [
+                  _vm._m(0, true),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "card-body" }, [
+                    _c("h4", { staticClass: "card-title" }, [
+                      _c("a", { attrs: { href: "#" } }, [
+                        _vm._v(_vm._s(product.name)),
                       ]),
                     ]),
+                    _vm._v(" "),
+                    _c("h5", [_vm._v("$ " + _vm._s(product.price))]),
+                    _vm._v(" "),
+                    _c("p", { staticClass: "card-text" }, [
+                      _vm._v(_vm._s(product.description)),
+                    ]),
                   ]),
-                ])
-              }),
-              0
-            ),
-            _vm._v(" "),
-            _c("pagination", {
-              attrs: { data: _vm.products },
-              on: { "pagination-change-page": _vm.loadProducts },
+                ]),
+              ])
             }),
-          ],
-          1
-        ),
+            0
+          ),
+        ]),
       ]),
     ]
   )
@@ -38058,10 +37745,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("a", { attrs: { href: "#" } }, [
-      _c("img", {
-        staticClass: "card-img-top",
-        attrs: { src: "http://placehold.it/700x400", alt: "" },
-      }),
+      _c("img", { staticClass: "card-img-top", attrs: { src: "#", alt: "" } }),
     ])
   },
 ]
@@ -50294,7 +49978,6 @@ __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
 Vue.component('front-page', __webpack_require__(/*! ./components/Front.vue */ "./resources/js/components/Front.vue")["default"]);
 var categoriesCreate = Vue.component('categories-create', __webpack_require__(/*! ./components/CategoriesCreate.vue */ "./resources/js/components/CategoriesCreate.vue")["default"]);
-Vue.component('pagination', __webpack_require__(/*! laravel-vue-pagination */ "./node_modules/laravel-vue-pagination/dist/laravel-vue-pagination.es.js"));
 var app = new Vue({
   el: '#app',
   components: {

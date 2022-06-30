@@ -15,7 +15,7 @@
                     <div class="col-lg-4 col-md-6 mb-4" v-for="product in products.data">
                         <div class="card h-100">
                             <a href="#">
-                                <img class="card-img-top" src="http://placehold.it/700x400" alt="">
+                                <img class="card-img-top" src="#" alt="">
                             </a>
                             <div class="card-body">
                                 <h4 class="card-title">
@@ -28,7 +28,6 @@
                     </div>
                 </div>
 
-                <pagination :data="products" @pagination-change-page="loadProducts"></pagination>
             </div>
         </div>
     </div>
@@ -50,7 +49,7 @@
         },
 
         mounted(){
-            cnosole.log('mounted');
+            console.log('mounted');
             
         },
 

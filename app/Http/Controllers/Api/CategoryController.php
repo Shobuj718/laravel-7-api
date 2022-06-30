@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Category;
 use Illuminate\Http\Request;
+use App\Http\Requests\StoreCategoryRequest;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\CategoryResource;
 
@@ -19,7 +20,8 @@ class CategoryController extends Controller
         return new CategoryResource($category);
     }
 
-    public function store(Request $request){
+    public function store(StoreCategoryRequest $request){
+
         $category = Category::create($request->all());
         return new CategoryResource($category);
     }

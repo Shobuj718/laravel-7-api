@@ -25,7 +25,7 @@
             createCategory: function(){
                 console.log('Creating category...');
                 axios.post('/api/categories', {
-                        // name: this.name
+                        name: this.name
                     })
                     .then(function(response) {
                         console.log('New Category ID: ' + response.data.data.id);

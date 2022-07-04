@@ -1,6 +1,36 @@
 <template>
     <div class="container" :class="{'loading': loading}">
-        <div class="row">
+        <div v-show="!user">
+            <br/>
+            <br/>
+
+            <form action="#" @submit.prevent="login">
+                <div class="form-group row">
+                    <label for="email" class="col-md-4 col-form-label text-md-right">Email Address</label>
+                    <div class="col-md-6">
+                        <input type="email" id="email" class="form-control" name="email" required autocomplete="email" autofocus v-model="loginData.email">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="password" class="col-md-4 col-form-label text-md-right">Password</label>
+                    <div class="col-md-6">
+                        <input type="password" id="password" class="form-control" name="password" required autocomplete="password" autofocus v-model="loginData.password">
+                    </div>
+                </div>
+
+                <div class="form-group row mb-0">
+                    <div class="col-md-8 offset-md-4">
+                        <button type="submit" class="btn btn-primary" @click="login">
+                            Login
+                        </button>
+                    </div>
+                </div>
+
+            </form>
+
+        </div>
+
+        <div class="row" v-show="user">
             <div class="col-lg-3">
                 <h1 class="my-4">Shop Catalogs</h1>
                 <a  href="/categories/create">Craete Category</a>
@@ -42,6 +72,11 @@
                 categories: [],
                 products: {},
                 loading: true,
+                user: false,
+                loginData:{
+                    email:'',
+                    password:''
+                }
             }
         },
 
@@ -57,8 +92,19 @@
 
 
         methods: {
+            login:function(){
+                axios.get('/sanctum/csrf-cookie').then(response => {
+                    axios.post('/login', this.loginData).then(response => {
+                        console.log(response);
+                        this.user = true;
+                        this.loadCategories();
+                        this.loadProducts(); 
+                    }).catch(error => console.log(error));
+                });
+            },
+
             loadCategories: function () {
-                axios.get('/api/categories')
+                axios.get('/api/V1/categories')
                     .then((response) => {
                         this.categories = response.data.data;
                     })
@@ -68,7 +114,7 @@
             },
 
             loadProducts(page = 1) {
-                axios.get('/api/products?page=' + page)
+                axios.get('/api/V1/products?page=' + page)
                     .then((response) => {
                         this.products = response.data;
                         this.loading = false;

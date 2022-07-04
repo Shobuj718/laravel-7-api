@@ -24,7 +24,7 @@
         methods: {
             createCategory: function(){
                 console.log('Creating category...');
-                axios.post('/api/categories', {
+                axios.post('/api/V1/categories', {
                         name: this.name
                     })
                     .then(function(response) {

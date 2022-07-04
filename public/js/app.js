@@ -1933,7 +1933,7 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     createCategory: function createCategory() {
       console.log('Creating category...');
-      axios.post('/api/categories', {
+      axios.post('/api/V1/categories', {
         name: this.name
       }).then(function (response) {
         console.log('New Category ID: ' + response.data.data.id);
@@ -1992,12 +1992,47 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
       categories: [],
       products: {},
-      loading: true
+      loading: true,
+      user: false,
+      loginData: {
+        email: '',
+        password: ''
+      }
     };
   },
   created: function created() {
@@ -2008,22 +2043,38 @@ __webpack_require__.r(__webpack_exports__);
     console.log('mounted');
   },
   methods: {
-    loadCategories: function loadCategories() {
+    login: function login() {
       var _this = this;
 
-      axios.get('/api/categories').then(function (response) {
-        _this.categories = response.data.data;
+      axios.get('/sanctum/csrf-cookie').then(function (response) {
+        axios.post('/login', _this.loginData).then(function (response) {
+          console.log(response);
+          _this.user = true;
+
+          _this.loadCategories();
+
+          _this.loadProducts();
+        })["catch"](function (error) {
+          return console.log(error);
+        });
+      });
+    },
+    loadCategories: function loadCategories() {
+      var _this2 = this;
+
+      axios.get('/api/V1/categories').then(function (response) {
+        _this2.categories = response.data.data;
       })["catch"](function (error) {
         console.log(error);
       });
     },
     loadProducts: function loadProducts() {
-      var _this2 = this;
+      var _this3 = this;
 
       var page = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
-      axios.get('/api/products?page=' + page).then(function (response) {
-        _this2.products = response.data;
-        _this2.loading = false;
+      axios.get('/api/V1/products?page=' + page).then(function (response) {
+        _this3.products = response.data;
+        _this3.loading = false;
       })["catch"](function (error) {
         console.log(error);
       });
@@ -38283,69 +38334,218 @@ var render = function () {
     "div",
     { staticClass: "container", class: { loading: _vm.loading } },
     [
-      _c("div", { staticClass: "row" }, [
-        _c("div", { staticClass: "col-lg-3" }, [
-          _c("h1", { staticClass: "my-4" }, [_vm._v("Shop Catalogs")]),
+      _c(
+        "div",
+        {
+          directives: [
+            {
+              name: "show",
+              rawName: "v-show",
+              value: !_vm.user,
+              expression: "!user",
+            },
+          ],
+        },
+        [
+          _c("br"),
           _vm._v(" "),
-          _c("a", { attrs: { href: "/categories/create" } }, [
-            _vm._v("Craete Category"),
-          ]),
+          _c("br"),
           _vm._v(" "),
           _c(
-            "div",
-            { staticClass: "list-group" },
-            _vm._l(_vm.categories, function (category) {
-              return _c("a", { staticClass: "list-group-item" }, [
-                _vm._v(
-                  "\n                    " +
-                    _vm._s(category.name) +
-                    "\n                "
+            "form",
+            {
+              attrs: { action: "#" },
+              on: {
+                submit: function ($event) {
+                  $event.preventDefault()
+                  return _vm.login.apply(null, arguments)
+                },
+              },
+            },
+            [
+              _c("div", { staticClass: "form-group row" }, [
+                _c(
+                  "label",
+                  {
+                    staticClass: "col-md-4 col-form-label text-md-right",
+                    attrs: { for: "email" },
+                  },
+                  [_vm._v("Email Address")]
                 ),
-              ])
-            }),
-            0
+                _vm._v(" "),
+                _c("div", { staticClass: "col-md-6" }, [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.loginData.email,
+                        expression: "loginData.email",
+                      },
+                    ],
+                    staticClass: "form-control",
+                    attrs: {
+                      type: "email",
+                      id: "email",
+                      name: "email",
+                      required: "",
+                      autocomplete: "email",
+                      autofocus: "",
+                    },
+                    domProps: { value: _vm.loginData.email },
+                    on: {
+                      input: function ($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(_vm.loginData, "email", $event.target.value)
+                      },
+                    },
+                  }),
+                ]),
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "form-group row" }, [
+                _c(
+                  "label",
+                  {
+                    staticClass: "col-md-4 col-form-label text-md-right",
+                    attrs: { for: "password" },
+                  },
+                  [_vm._v("Password")]
+                ),
+                _vm._v(" "),
+                _c("div", { staticClass: "col-md-6" }, [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.loginData.password,
+                        expression: "loginData.password",
+                      },
+                    ],
+                    staticClass: "form-control",
+                    attrs: {
+                      type: "password",
+                      id: "password",
+                      name: "password",
+                      required: "",
+                      autocomplete: "password",
+                      autofocus: "",
+                    },
+                    domProps: { value: _vm.loginData.password },
+                    on: {
+                      input: function ($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(_vm.loginData, "password", $event.target.value)
+                      },
+                    },
+                  }),
+                ]),
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "form-group row mb-0" }, [
+                _c("div", { staticClass: "col-md-8 offset-md-4" }, [
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-primary",
+                      attrs: { type: "submit" },
+                      on: { click: _vm.login },
+                    },
+                    [
+                      _vm._v(
+                        "\n                        Login\n                    "
+                      ),
+                    ]
+                  ),
+                ]),
+              ]),
+            ]
           ),
-        ]),
-        _vm._v(" "),
-        _c(
-          "div",
-          { staticClass: "col-lg-9" },
-          [
+        ]
+      ),
+      _vm._v(" "),
+      _c(
+        "div",
+        {
+          directives: [
+            {
+              name: "show",
+              rawName: "v-show",
+              value: _vm.user,
+              expression: "user",
+            },
+          ],
+          staticClass: "row",
+        },
+        [
+          _c("div", { staticClass: "col-lg-3" }, [
+            _c("h1", { staticClass: "my-4" }, [_vm._v("Shop Catalogs")]),
+            _vm._v(" "),
+            _c("a", { attrs: { href: "/categories/create" } }, [
+              _vm._v("Craete Category"),
+            ]),
+            _vm._v(" "),
             _c(
               "div",
-              { staticClass: "row mt-4" },
-              _vm._l(_vm.products.data, function (product) {
-                return _c("div", { staticClass: "col-lg-4 col-md-6 mb-4" }, [
-                  _c("div", { staticClass: "card h-100" }, [
-                    _vm._m(0, true),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "card-body" }, [
-                      _c("h4", { staticClass: "card-title" }, [
-                        _c("a", { attrs: { href: "#" } }, [
-                          _vm._v(_vm._s(product.name)),
-                        ]),
-                      ]),
-                      _vm._v(" "),
-                      _c("h5", [_vm._v("$ " + _vm._s(product.price))]),
-                      _vm._v(" "),
-                      _c("p", { staticClass: "card-text" }, [
-                        _vm._v(_vm._s(product.description)),
-                      ]),
-                    ]),
-                  ]),
+              { staticClass: "list-group" },
+              _vm._l(_vm.categories, function (category) {
+                return _c("a", { staticClass: "list-group-item" }, [
+                  _vm._v(
+                    "\n                    " +
+                      _vm._s(category.name) +
+                      "\n                "
+                  ),
                 ])
               }),
               0
             ),
-            _vm._v(" "),
-            _c("pagination", {
-              attrs: { data: _vm.products },
-              on: { "pagination-change-page": _vm.loadProducts },
-            }),
-          ],
-          1
-        ),
-      ]),
+          ]),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "col-lg-9" },
+            [
+              _c(
+                "div",
+                { staticClass: "row mt-4" },
+                _vm._l(_vm.products.data, function (product) {
+                  return _c("div", { staticClass: "col-lg-4 col-md-6 mb-4" }, [
+                    _c("div", { staticClass: "card h-100" }, [
+                      _vm._m(0, true),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "card-body" }, [
+                        _c("h4", { staticClass: "card-title" }, [
+                          _c("a", { attrs: { href: "#" } }, [
+                            _vm._v(_vm._s(product.name)),
+                          ]),
+                        ]),
+                        _vm._v(" "),
+                        _c("h5", [_vm._v("$ " + _vm._s(product.price))]),
+                        _vm._v(" "),
+                        _c("p", { staticClass: "card-text" }, [
+                          _vm._v(_vm._s(product.description)),
+                        ]),
+                      ]),
+                    ]),
+                  ])
+                }),
+                0
+              ),
+              _vm._v(" "),
+              _c("pagination", {
+                attrs: { data: _vm.products },
+                on: { "pagination-change-page": _vm.loadProducts },
+              }),
+            ],
+            1
+          ),
+        ]
+      ),
     ]
   )
 }
@@ -50626,6 +50826,7 @@ try {
 
 
 window.axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+axios.defaults.withCredentials = true;
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 /**
  * Echo exposes an expressive API for subscribing to channels and listening

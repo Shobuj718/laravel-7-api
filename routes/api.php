@@ -25,7 +25,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 // Route::delete('categories/{category}', 'Api\CategoryController@destroy');
 
 Route::group(['middleware' => 'throttle:60,1'], function(){
-    Route::apiResource('categories', 'Api\CategoryController');
+    Route::apiResource('categories', 'CategoryController');
 });
 
 Route::get('products', 'Api\ProductController@index');

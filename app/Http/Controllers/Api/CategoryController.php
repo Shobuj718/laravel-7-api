@@ -23,8 +23,17 @@ class CategoryController extends Controller
 
     public function store(StoreCategoryRequest $request){
 
-        $category = Category::create($request->all());
+        $data = $request->all();
+        if ($request->hasFile('photo')) {
+            $file = $request->file('photo');
+            $name = 'categories/' . uniqid() . '.' . $file->extension();
+            $file->storePubliclyAs('public', $name);
+            $data['photo'] = $name;
+        }
+        $category = Category::create($data);
+
         return new CategoryResource($category);
+
     }
 
     public function update(Category $category, StoreCategoryRequest $request)

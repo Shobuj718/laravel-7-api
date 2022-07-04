@@ -1991,6 +1991,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -38286,6 +38287,10 @@ var render = function () {
         _c("div", { staticClass: "col-lg-3" }, [
           _c("h1", { staticClass: "my-4" }, [_vm._v("Shop Catalogs")]),
           _vm._v(" "),
+          _c("a", { attrs: { href: "/categories/create" } }, [
+            _vm._v("Craete Category"),
+          ]),
+          _vm._v(" "),
           _c(
             "div",
             { staticClass: "list-group" },
@@ -50794,8 +50799,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\xampp\htdocs\projects\laravel-7-api\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\xampp\htdocs\projects\laravel-7-api\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! E:\xampp\htdocs\Laravel Daily\laravel-7-api\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! E:\xampp\htdocs\Laravel Daily\laravel-7-api\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

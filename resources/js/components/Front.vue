@@ -3,6 +3,7 @@
         <div class="row">
             <div class="col-lg-3">
                 <h1 class="my-4">Shop Catalogs</h1>
+                <a  href="/categories/create">Craete Category</a>
                 <div class="list-group">
                     <a class="list-group-item" v-for="category in categories">
                         {{ category.name }}

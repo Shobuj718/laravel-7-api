@@ -24,6 +24,8 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 // Route::put('categories/{category}', 'Api\CategoryController@update');
 // Route::delete('categories/{category}', 'Api\CategoryController@destroy');
 
-Route::apiResource('categories', 'Api\CategoryController');
+Route::group(['middleware' => 'throttle:60,1'], function(){
+    Route::apiResource('categories', 'Api\CategoryController');
+});
 
 Route::get('products', 'Api\ProductController@index');

@@ -44,6 +44,8 @@ class RouteServiceProvider extends ServiceProvider
     {
         $this->mapApiRoutes();
 
+        $this->mapApiV2Routes();
+
         $this->mapWebRoutes();
 
         //
@@ -76,5 +78,19 @@ class RouteServiceProvider extends ServiceProvider
             ->middleware('api')
             ->namespace($this->namespace. '\\Api\\V1')
             ->group(base_path('routes/api.php'));
+    }
+    /**
+     * Define the "api" routes for the application.
+     *
+     * These routes are typically stateless.
+     *
+     * @return void
+     */
+    protected function mapApiV2Routes()
+    {
+        Route::prefix('api/V2')
+            ->middleware('api')
+            ->namespace($this->namespace. '\\Api\\V2')
+            ->group(base_path('routes/api_v2.php'));
     }
 }
